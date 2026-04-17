@@ -436,3 +436,29 @@ body {
         display: block;
     }
 }
+
+/* Уведомления */
+.notification-toast {
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .notification-toast {
+        top: 10px;
+        bottom: auto;
+        left: 10px;
+        right: 10px;
+        max-width: calc(100% - 20px);
+    }
+}

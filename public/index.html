@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>Leksikon</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Leksikon">
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="description" content="Быстрый и безопасный мессенджер">
 </head>
 <body>
     <div id="app">
@@ -29,6 +35,7 @@
                         <input type="password" id="loginPassword" placeholder="Пароль">
                     </div>
                     <button type="submit" id="loginSubmitBtn">Войти</button>
+                    <button type="button" id="appleLoginBtn" style="background: #000; margin-top: 10px;">🍎 Войти через Apple ID</button>
                 </form>
                 <form id="registerForm" class="auth-form">
                     <input type="email" id="regEmail" placeholder="Email" required>
@@ -55,9 +62,13 @@
                     </div>
                     <div class="search-box">
                         <input type="text" id="searchUsers" placeholder="🔍 Поиск людей...">
+                        <div id="searchResults" style="margin-top: 8px;"></div>
                     </div>
                     <div class="users-list" id="usersList"></div>
+                    <div class="groups-list" id="groupsList" style="margin-top: 10px;"></div>
                     <div class="sidebar-footer">
+                        <button id="createGroupBtn" class="sidebar-btn">➕ Создать группу</button>
+                        <button id="shopBtn" class="sidebar-btn">⭐ Магазин</button>
                         <button id="addAccountBtn" class="sidebar-btn">➕ Добавить аккаунт</button>
                         <button id="settingsBtn" class="sidebar-btn">⚙️ Настройки</button>
                     </div>
@@ -73,6 +84,10 @@
                                 <span id="chatStatus"></span>
                             </div>
                         </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="callBtn" class="call-btn" title="Аудиозвонок">📞</button>
+                            <button id="videoCallBtn" class="call-btn" title="Видеозвонок">📹</button>
+                        </div>
                     </div>
                     <div class="messages-area">
                         <div class="messages-list" id="messagesList"></div>
@@ -80,6 +95,7 @@
                     <div class="input-area">
                         <button id="stickerBtn" class="input-btn" title="Стикеры">😀</button>
                         <button id="photoBtn" class="input-btn" title="Фото">📷</button>
+                        <button id="voiceBtn" class="input-btn" title="Голосовое">🎤</button>
                         <input type="text" id="messageInput" placeholder="Сообщение...">
                         <button id="sendBtn">📤</button>
                     </div>
@@ -139,10 +155,25 @@
                     </select>
                 </div>
                 <div class="settings-section">
+                    <h3>⭐ Баланс</h3>
+                    <div>У вас <span id="starsBalance">0</span> звезд</div>
+                    <button id="buyStarsBtn">Купить звезды</button>
+                </div>
+                <div class="settings-section">
                     <h3>📱 Устройство</h3>
                     <div id="deviceInfo" style="font-size: 14px;"></div>
                 </div>
                 <button id="closeSettingsBtn" class="close-btn">Закрыть</button>
+            </div>
+        </div>
+        
+        <div id="callModal" class="call-modal" style="display: none;">
+            <div class="call-modal-content">
+                <div id="callerName"></div>
+                <div id="callStatus">Звонок...</div>
+                <video id="localVideo" autoplay muted style="width: 100%; border-radius: 12px;"></video>
+                <video id="remoteVideo" autoplay style="width: 100%; border-radius: 12px;"></video>
+                <button id="hangupBtn" style="background: red;">Завершить</button>
             </div>
         </div>
     </div>
