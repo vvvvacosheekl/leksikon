@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMessenger</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Экран авторизации -->
+        <div id="authScreen" class="auth-container">
+            <div class="auth-card">
+                <h1>📱 MyMessenger</h1>
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Вход</button>
+                    <button class="tab-btn" data-tab="register">Регистрация</button>
+                </div>
+                <form id="loginForm" class="auth-form active">
+                    <input type="tel" id="loginPhone" placeholder="Номер телефона" required>
+                    <input type="password" id="loginPassword" placeholder="Пароль" required>
+                    <button type="submit">Войти</button>
+                </form>
+                <form id="registerForm" class="auth-form">
+                    <input type="tel" id="regPhone" placeholder="Номер телефона" required>
+                    <input type="text" id="regUsername" placeholder="Username (англ.)" required>
+                    <input type="password" id="regPassword" placeholder="Пароль" required>
+                    <button type="submit">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Основной мессенджер -->
+        <div id="messengerScreen" style="display: none;">
+            <div class="messenger-container">
+                <!-- Боковая панель с диалогами -->
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <h3>MyMessenger</h3>
+                        <button id="settingsSidebarBtn" class="icon-btn">⚙️</button>
+                    </div>
+                    <div class="current-user">
+                        <div class="avatar" id="currentUserAvatar"></div>
+                        <span id="currentUsername"></span>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="searchUsers" placeholder="Поиск...">
+                    </div>
+                    <div class="users-list" id="usersList">
+                        <!-- Список пользователей будет здесь -->
+                    </div>
+                </div>
+                
+                <!-- Область чата -->
+                <div class="chat-area">
+                    <div class="chat-header" id="chatHeader">
+                        <div class="chat-user-info">
+                            <div class="avatar" id="chatUserAvatar"></div>
+                            <div>
+                                <span id="chatUsername"></span>
+                                <span id="chatStatus" class="status-dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="messages-area" id="messagesArea">
+                        <div class="messages-list" id="messagesList">
+                            <!-- Сообщения будут здесь -->
+                        </div>
+                    </div>
+                    
+                    <div class="input-area">
+                        <input type="text" id="messageInput" placeholder="Сообщение...">
+                        <button id="sendBtn">📤</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Панель настроек -->
+        <div id="settingsPanel" class="settings-panel" style="display: none;">
+            <div class="settings-content">
+                <h2>Настройки</h2>
+                <div class="settings-section">
+                    <h3>Тема</h3>
+                    <select id="themeSelect">
+                        <option value="dark">Тёмная</option>
+                        <option value="light">Светлая</option>
+                        <option value="amoled">AMOLED</option>
+                    </select>
+                </div>
+                <div class="settings-section">
+                    <h3>Размер текста: <span id="fontSizeValue">16</span>px</h3>
+                    <input type="range" id="fontSizeSlider" min="12" max="24" value="16">
+                </div>
+                <div class="settings-section">
+                    <h3>Скругление углов: <span id="borderRadiusValue">12</span>px</h3>
+                    <input type="range" id="borderRadiusSlider" min="4" max="32" value="12">
+                </div>
+                <button id="closeSettingsBtn" class="close-btn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
