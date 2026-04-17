@@ -2,74 +2,84 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyMessenger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Leksikon</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div id="app">
-        <!-- Экран авторизации -->
         <div id="authScreen" class="auth-container">
             <div class="auth-card">
-                <h1>📱 MyMessenger</h1>
+                <h1>📱 Leksikon</h1>
                 <div class="auth-tabs">
                     <button class="tab-btn active" data-tab="login">Вход</button>
                     <button class="tab-btn" data-tab="register">Регистрация</button>
                 </div>
                 <form id="loginForm" class="auth-form active">
-                    <input type="tel" id="loginPhone" placeholder="Номер телефона" required>
-                    <input type="password" id="loginPassword" placeholder="Пароль" required>
-                    <button type="submit">Войти</button>
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <button type="button" id="loginWithCodeBtn" class="tab-btn active" style="flex:1;">По коду</button>
+                        <button type="button" id="loginWithPasswordBtn" class="tab-btn" style="flex:1;">По паролю</button>
+                    </div>
+                    <div id="loginCodeDiv">
+                        <button type="button" id="sendLoginCodeBtn">Отправить код</button>
+                        <input type="text" id="loginCode" placeholder="Код из письма" style="margin-top: 10px;">
+                    </div>
+                    <div id="loginPasswordDiv" style="display: none;">
+                        <input type="password" id="loginPassword" placeholder="Пароль">
+                    </div>
+                    <button type="submit" id="loginSubmitBtn">Войти</button>
                 </form>
                 <form id="registerForm" class="auth-form">
-                    <input type="tel" id="regPhone" placeholder="Номер телефона" required>
-                    <input type="text" id="regUsername" placeholder="Username (англ.)" required>
-                    <input type="password" id="regPassword" placeholder="Пароль" required>
-                    <button type="submit">Зарегистрироваться</button>
+                    <input type="email" id="regEmail" placeholder="Email" required>
+                    <button type="button" id="sendCodeBtn">Отправить код</button>
+                    <input type="text" id="regCode" placeholder="Код из письма" style="display: none;">
+                    <button type="submit" id="registerSubmitBtn" style="display: none;">Зарегистрироваться</button>
                 </form>
             </div>
         </div>
         
-        <!-- Основной мессенджер -->
         <div id="messengerScreen" style="display: none;">
             <div class="messenger-container">
-                <!-- Боковая панель с диалогами -->
-                <div class="sidebar">
+                <div class="sidebar" id="sidebar">
                     <div class="sidebar-header">
-                        <h3>MyMessenger</h3>
-                        <button id="settingsSidebarBtn" class="icon-btn">⚙️</button>
+                        <h3>Leksikon</h3>
+                        <button id="closeSidebarBtn" class="icon-btn mobile-only">✕</button>
                     </div>
                     <div class="current-user">
                         <div class="avatar" id="currentUserAvatar"></div>
-                        <span id="currentUsername"></span>
+                        <div>
+                            <span id="currentUsername"></span>
+                            <span id="currentUserStars" style="font-size:12px; display:block;">⭐ 100</span>
+                        </div>
                     </div>
                     <div class="search-box">
-                        <input type="text" id="searchUsers" placeholder="Поиск...">
+                        <input type="text" id="searchUsers" placeholder="🔍 Поиск людей...">
                     </div>
-                    <div class="users-list" id="usersList">
-                        <!-- Список пользователей будет здесь -->
+                    <div class="users-list" id="usersList"></div>
+                    <div class="sidebar-footer">
+                        <button id="addAccountBtn" class="sidebar-btn">➕ Добавить аккаунт</button>
+                        <button id="settingsBtn" class="sidebar-btn">⚙️ Настройки</button>
                     </div>
                 </div>
                 
-                <!-- Область чата -->
                 <div class="chat-area">
-                    <div class="chat-header" id="chatHeader">
+                    <div class="chat-header">
+                        <button id="menuBtn" class="menu-btn mobile-only">☰</button>
                         <div class="chat-user-info">
-                            <div class="avatar" id="chatUserAvatar"></div>
+                            <div class="avatar" id="chatAvatar"></div>
                             <div>
                                 <span id="chatUsername"></span>
-                                <span id="chatStatus" class="status-dot"></span>
+                                <span id="chatStatus"></span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="messages-area" id="messagesArea">
-                        <div class="messages-list" id="messagesList">
-                            <!-- Сообщения будут здесь -->
-                        </div>
+                    <div class="messages-area">
+                        <div class="messages-list" id="messagesList"></div>
                     </div>
-                    
                     <div class="input-area">
+                        <button id="stickerBtn" class="input-btn" title="Стикеры">😀</button>
+                        <button id="photoBtn" class="input-btn" title="Фото">📷</button>
                         <input type="text" id="messageInput" placeholder="Сообщение...">
                         <button id="sendBtn">📤</button>
                     </div>
@@ -77,25 +87,60 @@
             </div>
         </div>
         
-        <!-- Панель настроек -->
-        <div id="settingsPanel" class="settings-panel" style="display: none;">
+        <div id="settingsPanel" class="settings-panel">
             <div class="settings-content">
                 <h2>Настройки</h2>
                 <div class="settings-section">
-                    <h3>Тема</h3>
+                    <h3>🎨 Тема</h3>
                     <select id="themeSelect">
+                        <option value="purple">Фиолетовая</option>
                         <option value="dark">Тёмная</option>
                         <option value="light">Светлая</option>
                         <option value="amoled">AMOLED</option>
                     </select>
                 </div>
                 <div class="settings-section">
-                    <h3>Размер текста: <span id="fontSizeValue">16</span>px</h3>
+                    <h3>📏 Размер текста: <span id="fontSizeValue">16</span>px</h3>
                     <input type="range" id="fontSizeSlider" min="12" max="24" value="16">
                 </div>
                 <div class="settings-section">
-                    <h3>Скругление углов: <span id="borderRadiusValue">12</span>px</h3>
-                    <input type="range" id="borderRadiusSlider" min="4" max="32" value="12">
+                    <h3>🔄 Скругление углов: <span id="borderRadiusValue">18</span>px</h3>
+                    <input type="range" id="borderRadiusSlider" min="4" max="32" value="18">
+                </div>
+                <div class="settings-section">
+                    <h3>🖼️ Аватарка</h3>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <img id="profileAvatar" class="avatar" style="width: 60px; height: 60px;">
+                        <input type="file" id="avatarInput" accept="image/*">
+                    </div>
+                    <button id="uploadAvatarBtn">Загрузить</button>
+                </div>
+                <div class="settings-section">
+                    <h3>👤 Профиль</h3>
+                    <input type="text" id="profileUsername" placeholder="Username (англ.)">
+                    <textarea id="profileBio" placeholder="О себе" rows="2"></textarea>
+                    <input type="date" id="profileBirthDate">
+                    <button id="updateProfileBtn">Сохранить</button>
+                </div>
+                <div class="settings-section">
+                    <h3>🔐 Безопасность</h3>
+                    <button id="showSetPasswordBtn">Установить пароль</button>
+                    <div id="setPasswordDiv" style="display: none; margin-top: 10px;">
+                        <input type="password" id="newPassword" placeholder="Новый пароль">
+                        <button id="confirmPasswordBtn">Сохранить пароль</button>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>👁️ Конфиденциальность</h3>
+                    <select id="privacyEmailVisible">
+                        <option value="everyone">Кто видит email: Все</option>
+                        <option value="contacts">Кто видит email: Контакты</option>
+                        <option value="nobody">Кто видит email: Никто</option>
+                    </select>
+                </div>
+                <div class="settings-section">
+                    <h3>📱 Устройство</h3>
+                    <div id="deviceInfo" style="font-size: 14px;"></div>
                 </div>
                 <button id="closeSettingsBtn" class="close-btn">Закрыть</button>
             </div>

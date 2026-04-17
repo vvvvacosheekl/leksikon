@@ -5,94 +5,119 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     height: 100vh;
     overflow: hidden;
 }
 
-/* Темы */
+/* Фиолетовая тема по умолчанию */
+body, body[data-theme="purple"] {
+    --bg-primary: #1a0b2e;
+    --bg-secondary: #2d1b4e;
+    --bg-tertiary: #3d2a5c;
+    --bg-card: #2d1b4e;
+    --text-primary: #ffffff;
+    --text-secondary: #c4b5fd;
+    --text-muted: #a78bfa;
+    --border: #4c3d70;
+    --accent: #8b5cf6;
+    --accent-hover: #a78bfa;
+    --message-in: #3d2a5c;
+    --message-out: #8b5cf6;
+}
+
 body[data-theme="dark"] {
-    --bg: #1a1a2e;
-    --surface: #16213e;
-    --text: #ffffff;
-    --text-secondary: #aaaaaa;
-    --border: #2a2a3e;
-    --message-bubble: #2a2a3e;
-    --my-message: #667eea;
-    --input-bg: #0f0f1a;
-    --hover: #1e2a4a;
+    --bg-primary: #0f0f12;
+    --bg-secondary: #1a1a1e;
+    --bg-tertiary: #25252b;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --border: #27272a;
+    --accent: #5e6ad2;
+    --message-in: #2a2a30;
+    --message-out: #5e6ad2;
 }
 
 body[data-theme="light"] {
-    --bg: #f5f5f5;
-    --surface: #ffffff;
-    --text: #333333;
-    --text-secondary: #666666;
-    --border: #e0e0e0;
-    --message-bubble: #e8e8e8;
-    --my-message: #667eea;
-    --input-bg: #ffffff;
-    --hover: #f0f0f0;
+    --bg-primary: #f3e8ff;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f3e8ff;
+    --text-primary: #1e1b4b;
+    --text-secondary: #5b21b6;
+    --border: #e9d5ff;
+    --accent: #8b5cf6;
+    --message-in: #f3e8ff;
+    --message-out: #8b5cf6;
 }
 
 body[data-theme="amoled"] {
-    --bg: #000000;
-    --surface: #111111;
-    --text: #ffffff;
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #111111;
+    --text-primary: #ffffff;
     --text-secondary: #888888;
-    --border: #222222;
-    --message-bubble: #1a1a1a;
-    --my-message: #00ff88;
-    --input-bg: #0a0a0a;
-    --hover: #1a1a1a;
+    --border: #1a1a1a;
+    --accent: #00ff88;
+    --message-in: #1a1a1a;
+    --message-out: #00ff88;
 }
 
 body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
-/* Авторизация */
+/* ============ АВТОРИЗАЦИЯ ============ */
 .auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
 }
 
 .auth-card {
-    background: var(--surface);
+    background: var(--bg-card);
     padding: 40px;
-    border-radius: 20px;
-    width: 350px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border-radius: 32px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 .auth-card h1 {
     text-align: center;
-    margin-bottom: 20px;
-    color: var(--text);
+    margin-bottom: 30px;
+    font-size: 28px;
+    background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .auth-tabs {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    background: var(--bg-tertiary);
+    padding: 4px;
+    border-radius: 60px;
 }
 
 .tab-btn {
     flex: 1;
-    padding: 10px;
-    background: var(--bg);
+    padding: 12px;
+    background: transparent;
     border: none;
-    color: var(--text);
+    color: var(--text-secondary);
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 60px;
+    font-size: 14px;
+    transition: all 0.2s;
 }
 
 .tab-btn.active {
-    background: #667eea;
+    background: var(--accent);
     color: white;
 }
 
@@ -106,24 +131,23 @@ body {
     display: flex;
 }
 
-.auth-form input {
-    padding: 12px;
+.auth-form input, .auth-form button {
+    padding: 14px;
+    border-radius: 60px;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--input-bg);
-    color: var(--text);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 15px;
 }
 
 .auth-form button {
-    padding: 12px;
-    background: #667eea;
+    background: var(--accent);
     color: white;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
 }
 
-/* Мессенджер */
+/* ============ МЕССЕНДЖЕР ============ */
 .messenger-container {
     display: flex;
     height: 100vh;
@@ -132,7 +156,7 @@ body {
 /* Боковая панель */
 .sidebar {
     width: 320px;
-    background: var(--surface);
+    background: var(--bg-secondary);
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
@@ -141,13 +165,18 @@ body {
 .sidebar-header {
     padding: 20px;
     border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+}
+
+.sidebar-header h3 {
+    font-size: 20px;
+    background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .current-user {
-    padding: 15px 20px;
+    padding: 16px 20px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -155,28 +184,31 @@ body {
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: #667eea;
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    font-size: 20px;
     color: white;
+    background-size: cover;
+    background-position: center;
 }
 
 .search-box {
-    padding: 15px;
+    padding: 16px;
 }
 
 .search-box input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
+    border-radius: 60px;
     border: 1px solid var(--border);
-    border-radius: 20px;
-    background: var(--input-bg);
-    color: var(--text);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
 .users-list {
@@ -185,20 +217,34 @@ body {
 }
 
 .user-item {
-    padding: 12px 20px;
+    padding: 12px 16px;
     display: flex;
     align-items: center;
     gap: 12px;
     cursor: pointer;
-    transition: background 0.2s;
+    border-radius: 12px;
+    margin: 4px 8px;
 }
 
 .user-item:hover {
-    background: var(--hover);
+    background: var(--bg-tertiary);
 }
 
 .user-item.active {
-    background: var(--hover);
+    background: var(--accent);
+}
+
+.user-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    background-size: cover;
+    background-position: center;
 }
 
 .user-info {
@@ -206,28 +252,12 @@ body {
 }
 
 .user-name {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .user-status {
     font-size: 12px;
-    color: var(--text-secondary);
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-left: 8px;
-}
-
-.status-dot.online {
-    background: #4caf50;
-}
-
-.status-dot.offline {
-    background: #888;
+    color: var(--text-muted);
 }
 
 /* Область чата */
@@ -235,18 +265,22 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    background: var(--bg-primary);
 }
 
 .chat-header {
-    padding: 20px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--border);
-    background: var(--surface);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .chat-user-info {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex: 1;
 }
 
 .messages-area {
@@ -258,22 +292,21 @@ body {
 .messages-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .message {
     max-width: 70%;
-    padding: 10px 15px;
-    border-radius: var(--border-radius, 12px);
-    background: var(--message-bubble);
+    padding: 10px 16px;
+    border-radius: 18px;
+    background: var(--message-in);
     word-wrap: break-word;
     font-size: var(--font-size, 16px);
 }
 
 .message.my {
-    background: var(--my-message);
+    background: var(--message-out);
     align-self: flex-end;
-    margin-left: auto;
     color: white;
 }
 
@@ -285,51 +318,49 @@ body {
 }
 
 .input-area {
-    padding: 20px;
+    padding: 16px 20px;
     border-top: 1px solid var(--border);
     display: flex;
     gap: 10px;
-    background: var(--surface);
+    background: var(--bg-secondary);
 }
 
 .input-area input {
     flex: 1;
-    padding: 12px;
+    padding: 12px 18px;
+    border-radius: 60px;
     border: 1px solid var(--border);
-    border-radius: 25px;
-    background: var(--input-bg);
-    color: var(--text);
-    outline: none;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
 .input-area button {
-    padding: 12px 20px;
-    background: #667eea;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
     border: none;
-    border-radius: 25px;
     cursor: pointer;
-    font-size: 18px;
-}
-
-.icon-btn {
-    background: none;
-    border: none;
     font-size: 20px;
-    cursor: pointer;
 }
 
 /* Панель настроек */
 .settings-panel {
     position: fixed;
     top: 0;
-    right: 0;
-    width: 350px;
+    right: -100%;
+    width: 100%;
+    max-width: 400px;
     height: 100vh;
-    background: var(--surface);
-    border-left: 1px solid var(--border);
-    z-index: 1000;
-    padding: 20px;
+    background: var(--bg-secondary);
+    z-index: 2000;
+    transition: right 0.3s ease;
     overflow-y: auto;
+    padding: 20px;
+}
+
+.settings-panel.open {
+    right: 0;
 }
 
 .settings-section {
@@ -338,30 +369,70 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
-.settings-section input,
-.settings-section select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--input-bg);
-    color: var(--text);
+.settings-section h3 {
+    margin-bottom: 10px;
 }
 
-.close-btn {
+.settings-section select,
+.settings-section input,
+.settings-section textarea {
     width: 100%;
     padding: 10px;
-    background: #667eea;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.close-btn, .sidebar-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--accent);
     border: none;
-    border-radius: 10px;
     color: white;
     cursor: pointer;
+    margin-top: 10px;
 }
 
-.typing-indicator {
-    font-size: 12px;
-    color: var(--text-secondary);
-    padding: 5px 20px;
-    font-style: italic;
+.sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 1000;
+        transition: left 0.3s;
+    }
+    .sidebar.open {
+        left: 0;
+    }
+    .menu-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-primary);
+    }
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
 }
